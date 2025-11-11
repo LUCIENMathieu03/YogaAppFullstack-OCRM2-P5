@@ -41,3 +41,44 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add('login', (interceptSessions = []) => {
+  cy.visit('/login');
+
+  cy.intercept('POST', '/api/auth/login', {
+    body: {
+      id: 1, // id du user connecté
+      username: 'userName',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      admin: true,
+    },
+  }).as('loginRequestRes');
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: '/api/session',
+    },
+    interceptSessions
+  ).as('session');
+
+  cy.get('input[formControlName=email]').type('yoga@studio.com');
+  cy.get('input[formControlName=password]').type(
+    `${'test!1234'}{enter}{enter}`
+  );
+
+  cy.wait('@loginRequestRes').its('request.body');
+});
+
+Cypress.Commands.add(
+  'sessionDetailRequestIntercept',
+  (sessionDetail = {}, id = 1) => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url: `/api/session/${id}`,
+      },
+      sessionDetail
+    ).as('sessionDetail');
+  }
+);
