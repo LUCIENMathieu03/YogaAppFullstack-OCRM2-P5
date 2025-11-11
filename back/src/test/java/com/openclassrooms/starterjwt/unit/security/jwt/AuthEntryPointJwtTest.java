@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -69,7 +70,7 @@ public class AuthEntryPointJwtTest {
         // Désérialisation du JSON pour vérifications précises
         ObjectMapper mapper = new ObjectMapper();
         @SuppressWarnings("unchecked")
-        var body = mapper.readValue(jsonResponse, java.util.Map.class);
+        java.util.Map<String, Object>  body = mapper.readValue(jsonResponse, java.util.Map.class);
 
         assertThat(body).containsEntry("status", HttpServletResponse.SC_UNAUTHORIZED);
         assertThat(body).containsEntry("error", "Unauthorized");

@@ -24,6 +24,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+class TestAuthTokenFilter extends AuthTokenFilter {
+    @Override
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        super.doFilterInternal(request, response, filterChain);
+    }
+}
+
 @ExtendWith(MockitoExtension.class)
 public class AuthTokenFilterTest {
     @Mock
@@ -45,7 +53,7 @@ public class AuthTokenFilterTest {
     UserDetails userDetails;
 
     @InjectMocks
-    AuthTokenFilter authTokenFilter;
+    TestAuthTokenFilter authTokenFilter;
 
     @BeforeEach
     void setUp() {
