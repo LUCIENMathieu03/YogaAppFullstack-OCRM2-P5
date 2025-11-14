@@ -16,7 +16,7 @@
     <description>The best backend for an Yoga app !</description>
 
     <properties>
-        <!--    <java.version>1.8</java.version>-->
+<!--            <java.version>1.8</java.version>-->
         <!--  ajout perso -->
         <java.version>11</java.version>
     </properties>
@@ -163,6 +163,14 @@
                     </execution>
 
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

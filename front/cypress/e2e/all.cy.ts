@@ -1,3 +1,4 @@
+//Ce fichier aide au bon calcul du coverage
 import './account.cy.ts';
 import './login.cy.ts';
 import './register.cy.ts';
